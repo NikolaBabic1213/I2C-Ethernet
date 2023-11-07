@@ -1,10 +1,8 @@
-# I2C-Ethernet
-
-Povezivanje I2C i Ethernet interfejsa – projektni zadatak
+# Povezivanje I2C i Ethernet interfejsa – projektni zadatak
 
 Tema projektnog zadatka je bila povezivanje I2C i Ethernet interfejsa. Dvije Raspberry Pi platforme međusobno ostvaruju komunikaciju pomoću Ethernet interfejsa, tako da jedan Raspberry Pi posmatramo kao server, a drugi kao klijent. Server je taj koji nudi podatke klijentu ili ukoliko klijent zahtijeva upis podataka, upisuje ih u odgovarajuće registre. Klijent određuje da li želi upisivanje ili čitanje podataka, a server na osnovu I2C komunikacije komunicira sa odgovarajućim modulom, u našem slučaju to je PWM Click modul, a zatim čita tražene ili upisuje zahtijevane vrijednosti. U nastavku slijedi kratak osvrt na implementaciju zadatka.
 
-Priprema ciljne platforme i kloniranje repozitorijuma
+# Priprema ciljne platforme i kloniranje repozitorijuma
 
 Da bismo realizovali ovaj zadatak potrebne su nam dvije Raspberry Pi platforme, PWM Click modul, te osciloskop koji će nam omogućiti da posmatramo odgovarajuće pravougaone signale te nam time dati potvrdu da smo uspješno riješili zadatak. 
 Potrebno je da konfigurišemo Raspberry Pi platforme u smislu instalacije odgovarajućeg operativnog sistema, te formatiranja SD kartice, kao i postavljanja odgovarajućih IP adresa i korisničkog imena. Povezivanje na Raspberry Pi platformu možemo učiniti unošenjem sljedeće komande u terminal, pri čemu username i ip_addr treba da se zamijene stvarnim vrijednostima:
@@ -15,19 +13,31 @@ git clone <dodati adresu>
 
 U nastavku će biti objašnjeno kako su programi realizovani, te kako ih na odgovarajući način kompajlirati i prenijeti na ciljnu platformu.
 
-Rad sa PWM Click modulom
+# Rad sa PWM Click modulom
 
-Ukoliko smo uspješno pristupili Raspberry Pi platformi, potrebno je da na odgovarajući način povežemo pinove PWM Click modula i Raspberry Pi platforme. Raspored pinova Raspberry Pi platforme  je dostupan na sljedećem linku, a dokumentacija vezana za PWM Click modul ovdje.
+Ukoliko smo uspješno pristupili Raspberry Pi platformi, potrebno je da na odgovarajući način povežemo pinove PWM Click modula i Raspberry Pi platforme. Raspored pinova Raspberry Pi platforme  je dostupan na sljedećem [linku](https://pinout.xyz/), a dokumentacija vezana za PWM Click modul [ovdje](https://download.mikroe.com/documents/datasheets/PCA9685_datasheet.pdf).
+
 GPIO 2 (I2C1 SDA) pin povezujemo sa SDA pinom PWM Click modula, a GPIO 3 (I2C1 SCL) povezujemo sa SCL pinom PWM Click modula. Potrebno je da povežemo napajanje od 3.3V, te pin Ground. OE (output enable) pin treba da bude na niskom nivou da bi izlaz bio omogućen, no iz dokumentacije možemo uočiti da je taj pin preko pull-down otpornika već spojen na masu, tako da taj pin možemo držati odspojenim.
 Na slici ispod prikazan je način povezivanja.
 
-<dodati sliku povezanog rpi i pwm>
+<img src="https://github.com/NikolaBabic1213/I2C-Ethernet/assets/128309520/b80423d7-bf2f-4486-a1a8-ffe3e2e67961" width="1000" height="800">
+
+
+
+<img src="https://github.com/NikolaBabic1213/I2C-Ethernet/assets/128309520/a669770f-4999-473d-bf37-e28bae684a1b" width="800" height="1000">
+
+
+
 
 Da bismo realizovali zadatak potrebno je da proučimo dokumentaciju PWM Click modula. PWM Click modul je razvojna pločica na kojoj se nalazi PCA9685, 16-kanalni kontroler. Potrebno je da na odgovarajući način podesimo I2C adresu uređaja.  Adresa u našem slučaju je sedmobitna, viša 4 bita postavljena su na vrijednost 1000, a vrijednosti nižih bita A2, A1 i A0 su određene položajem odgovarajućih jumper-a, što možemo vidjeti na samoj pločici. U našem slučaju vrijednosti su postavljene na 000. Tako da konačno formirana I2C adresa je 01000000, odnosno u heksadecimalnoj notaciji 0x40. U implementaciji I2C komunikacije koristili smo kombinovanu transakciju. 
 Na sljedećoj slici prikazani su registri i njihove adrese. Od interesa su nam MODE1 registar sa adresom 0x00, zatim LED0_ON_L, LED0_ON_H,  LED0_OFF_L, LED0_OFF_H registri koji se odnose na kanal 0, a čije su adrese redom 0x06, 0x07, 0x08, 0x09.
 
- 
+![image](https://github.com/NikolaBabic1213/I2C-Ethernet/assets/128309520/e3d0363b-4eb3-4066-8610-8ac95219543c) 
+
 U registar MODE1 upisujemo podatak 0x20, razlog toga možemo objasniti, ako se pogleda sljedeća slika. 
+
+![image](https://github.com/NikolaBabic1213/I2C-Ethernet/assets/128309520/4ff5d2e3-8e60-446d-80a5-7d4a3bda4ffb)
+
 
  
 Omogućavamo AUTO-INCREMENT bit, dok ostale postavljamo na nulu. RESTART je onemogućen, EXTCLK je postavljen na nulu, jer se koristi interni clock signal, SLEEP koristimo navedeni normal mode. Kada zapišemo te vrijednosti dobijamo podatak 00100000, odnosno u heksadecimalnoj notaciji 0x20.
@@ -46,6 +56,11 @@ Nakon druge komande biće potrebno unijeti šifru koju smo postavili na Raspberr
 ./i2c
 
 Prije toga potrebno je da sondu osciloskopa postavimo na kanal 0 PWM Click modula i povežemo ground. Ukoliko smo sve ispravno odradili dobijamo signal prikazan na sljedećoj slici:
-<dodati sliku s faktorom popune od 20%>
+
+
+<img src="https://github.com/NikolaBabic1213/I2C-Ethernet/assets/128309520/484d5d25-540b-4e52-8f3d-9c18ae2ad53b" width="1000" height="800">
+
+
 Ovim smo potvrdili ispravnost I2C komunikacije. 
-Ethernet komunikacija
+
+# Ethernet komunikacija

@@ -20,11 +20,11 @@ Ukoliko smo uspješno pristupili Raspberry Pi platformi, potrebno je da na odgov
 GPIO 2 (I2C1 SDA) pin povezujemo sa SDA pinom PWM Click modula, a GPIO 3 (I2C1 SCL) povezujemo sa SCL pinom PWM Click modula. Potrebno je da povežemo napajanje od 3.3V, te pin Ground. OE (output enable) pin treba da bude na niskom nivou da bi izlaz bio omogućen, no iz dokumentacije možemo uočiti da je taj pin preko pull-down otpornika već spojen na masu, tako da taj pin možemo držati odspojenim.
 Na slici ispod prikazan je način povezivanja.
 
-<img src="https://github.com/NikolaBabic1213/I2C-Ethernet/assets/128309520/b80423d7-bf2f-4486-a1a8-ffe3e2e67961" width="1000" height="820">
+<img src="https://github.com/NikolaBabic1213/I2C-Ethernet/assets/128309520/b80423d7-bf2f-4486-a1a8-ffe3e2e67961" width="1000" height="780">
 
 
 
-<img src="https://github.com/NikolaBabic1213/I2C-Ethernet/assets/128309520/a669770f-4999-473d-bf37-e28bae684a1b" width="820" height="1000">
+<img src="https://github.com/NikolaBabic1213/I2C-Ethernet/assets/128309520/a669770f-4999-473d-bf37-e28bae684a1b" width="780" height="1000">
 
 
 
@@ -58,7 +58,7 @@ Nakon druge komande biće potrebno unijeti šifru koju smo postavili na Raspberr
 Prije toga potrebno je da sondu osciloskopa postavimo na kanal 0 PWM Click modula i povežemo ground. Ukoliko smo sve ispravno odradili dobijamo signal prikazan na sljedećoj slici:
 
 
-<img src="https://github.com/NikolaBabic1213/I2C-Ethernet/assets/128309520/484d5d25-540b-4e52-8f3d-9c18ae2ad53b" width="1000" height="820">
+<img src="https://github.com/NikolaBabic1213/I2C-Ethernet/assets/128309520/484d5d25-540b-4e52-8f3d-9c18ae2ad53b" width="1000" height="780">
 
 
 Ovim smo potvrdili ispravnost I2C komunikacije. 

@@ -9,7 +9,9 @@ Potrebno je da konfigurišemo Raspberry Pi platforme u smislu instalacije odgova
 ssh username@ip_addr
 
 Da bismo pokrenuli programe koji su dostupni unutar ovog repozitorijuma potrebno je da kloniramo ovaj repozitorijum, tako što u terminalu unesemo sljedeću komandu:
-git clone <dodati adresu>
+```
+git clone https://github.com/NikolaBabic1213/I2C-Ethernet
+```
 
 U nastavku će biti objašnjeno kako su programi realizovani, te kako ih na odgovarajući način kompajlirati i prenijeti na ciljnu platformu.
 

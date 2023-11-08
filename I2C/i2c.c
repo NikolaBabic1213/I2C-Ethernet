@@ -57,13 +57,7 @@ int main()
 	
 	ioctl(fd, I2C_RDWR, &msgset);
 	
-	
-   for (;;)
-	{ 
-	
-	sleep(1);
-	
-	}
+
 
 close(fd);
 	

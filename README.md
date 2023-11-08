@@ -6,7 +6,9 @@ Tema projektnog zadatka je bila povezivanje I2C i Ethernet interfejsa. Dvije Ras
 
 Da bismo realizovali ovaj zadatak potrebne su nam dvije Raspberry Pi platforme, PWM Click modul, te osciloskop koji će nam omogućiti da posmatramo odgovarajuće pravougaone signale te nam time dati potvrdu da smo uspješno riješili zadatak. 
 Potrebno je da konfigurišemo Raspberry Pi platforme u smislu instalacije odgovarajućeg operativnog sistema, te formatiranja SD kartice, kao i postavljanja odgovarajućih IP adresa i korisničkog imena. Povezivanje na Raspberry Pi platformu možemo učiniti unošenjem sljedeće komande u terminal, pri čemu username i ip_addr treba da se zamijene stvarnim vrijednostima:
+```
 ssh username@ip_addr
+```
 
 Da bismo pokrenuli programe koji su dostupni unutar ovog repozitorijuma potrebno je da kloniramo ovaj repozitorijum, tako što u terminalu unesemo sljedeću komandu:
 ```

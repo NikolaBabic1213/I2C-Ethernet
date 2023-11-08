@@ -91,7 +91,7 @@ na Raspberry-u koji prima podatke.
 Prilikom pokretanja programa potrebno je prvo podesiti mode1 registar (adresa 0x00) tako što ćemo u njega upisati podatak 0x20. U sljedećoj poruci ćemo podešavati parametre vezane za faktor popune tako što ćemo postaviti adresu registra na adresu registra LED0_ON_L (0x06) i poslati par podataka. Potrebno je podesiti vrijednosti 4 registra, no pošto je auto-increment uključen, u sklopu mode1 registra, to znači da ćemo jednom porukom moći podesiti vrijednosti registara koji slijede registru LED0_ON_L. Svaki naredni podatak u i2c transakciji će inkrementovati vrijednost adrese registra. 
 Da bismo dobili faktor popune od 20% šaljemo sljedeće podatke: 0x01, 0x99, 0x04, 0xCC.
 Za faktor popune od 50% podaci su sljedeći: 0x00, 0x00, 0x00, 0x08.
-Na sljedećoj slici prikazan je izlazni signal PWM click-a za faktor popune od 20%: 
+Na sljedećoj slici prikazan je izlazni signal PWM click-a za faktor popune od 50%: 
 
 <img src="https://github.com/NikolaBabic1213/I2C-Ethernet/assets/128309520/a367beed-ef38-4154-b24d-edadc2904cac" width="1000" height="780">
 

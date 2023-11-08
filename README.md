@@ -64,3 +64,5 @@ Prije toga potrebno je da sondu osciloskopa postavimo na kanal 0 PWM Click modul
 Ovim smo potvrdili ispravnost I2C komunikacije. 
 
 # Ethernet komunikacija
+
+Za Ethernet komunikaciju su potrebne dvije RapberryPi platforme, jedna u funkciji servera, a druga u funkciji klijenta. Server šalje read/write poruku klijentu, a klijent odgovara u zavisnosti od poruke. Ako je u pitanju read poruka, on odgovara podatkom koji je smješten u registar čija je adresa smještena u okviru read poruke. Ako je u pitanju write poruka onda se upisuju podaci u registre koji su navedeni u okviru te poruke. Protokol koji se koristi na transportnom sloju je UDP. Format UDP datagrama je sljedeći: prvi bajt predstavlja fleg bajt čija vrijednost određuje da li je u pitanju read ili write poruka (0 - write, ostalo - write), drugi bajt je adresa slave uređaja (u našem slučaju adresa pwm click-a), treći bajt je adresa registra u koji se piše/iz kojeg se čita, i ostali bajtovi, ako postoje, su podaci koji se upisuju. Ako šalje write poruka tada se unosi broj poruka i poruke koje se šalju, odnosno podaci koji se upisuju, a ako je u pitanju read poruka, onda se ovi podaci ne unose.

@@ -45,7 +45,8 @@ Vrijednosti koje se upisuju u gore navedena četiri registra zavise od željenog
 Za faktor popune od 50% bilo bi potrebno navesti sljedeće heskadecimalne vrijednosti 0x00, 0x00, 0x00, te 0x08 i to navedenim redom.
 I2C komunikacija se sastoji od dvije poruke, u prvoj poruci u MODE1 registar upisujemo podatak 0x20, a u drugoj poruci u četiri navedena registra upisujemo odgovarajuće vrijednosti koje zavise od faktora popune kojeg želimo postaviti.
 
-Testiranje PWM Click modula
+# Testiranje PWM Click modula
+
 Ako pretpostavimo da smo uspješno klonirali  udaljeni repozitorijum, možemo da izlistamo sve fajlove pomoću komande ls. Vidimo da imamo tri fajla koja su napisana u C jeziku. Trenutno nam je od interesa fajl koji se zove i2c.c. Ukoliko smo ispravno povezali Raspberry Pi platformu i PWM Click modul, možemo da kroskompajliramo program i prenesemo na ciljnu platformu tako što ćemo pokrenuti sljedeće komande:
 
 arm-linux-gnueabihf-gcc i2c.c -o i2c
